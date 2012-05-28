@@ -1,3 +1,10 @@
+Fork of node.js buildpack to include PhantomJS, using:
+https://github.com/stomita/heroku-buildpack-phantomjs
+
+
+#####
+
+
 Heroku buildpack: Node.js
 =========================
 

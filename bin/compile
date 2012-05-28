@@ -168,3 +168,25 @@ echo "-----> Installing dependencies with npm"
 run_npm "install --production"
 run_npm "rebuild"
 echo "Dependencies installed" | indent
+
+
+## phantomjs
+
+# config
+PHANTOM_VERSION="1.5.0"
+PHANTOM_S3_BUCKET="stomita-buildpack-phantomjs"
+
+# s3 packages
+PHANTOM_FILE_NAME="buildpack-phantomjs-${PHANTOM_VERSION}.tar.gz"
+PHANTOM_BUILDPACK_PHANTOMJS_PACKAGE="http://${PHANTOM_S3_BUCKET}.s3.amazonaws.com/${PHANTOM_FILE_NAME}"
+
+mkdir -p $CACHE_DIR
+#if ! [ -e $CACHE_DIR/$PHANTON_FILE_NAME ]; then
+echo "-----> Fetching PhantomJS buildpack binaries"
+curl $PHANTOM_BUILDPACK_PHANTOMJS_PACKAGE -s -o $CACHE_DIR/$PHANTOM_FILE_NAME
+#fi
+
+echo "-----> Extracting PhantomJS binaries" 
+mkdir -p $BUILD_DIR/vendor/phantomjs
+tar zxf $CACHE_DIR/$PHANTOM_FILE_NAME -C $BUILD_DIR/vendor/phantomjs
+
